@@ -7,12 +7,12 @@ import java.util.UUID;
 public class Game {
     private final String id = UUID.randomUUID().toString();
     private final ArrayList<String> ennemyId = new ArrayList<>(1);
-    private final int[][]map;
+    private final int[][] battlemap;
     private final int [][]ennemyMap = new int [10][10];
 
     public Game() {
         Random random = new Random();
-        this.map = new GameBoat(random.nextInt(3)).getBoats();
+        this.battlemap = new GameBoat(random.nextInt(3)).getBoats();
         for (int i = 0; i < 10; i++)
         {
             for (int y = 0;y < 10;y++)
@@ -23,9 +23,9 @@ public class Game {
         Object[] result = new Object[2];
         result[0] = "miss";
         result[1] = true;
-        if (this.map[tab[0]][tab[1]] != 0) {
-            int boat_id = this.map[tab[0]][tab[1]];
-            this.map[tab[0]][tab[1]] = 0;
+        if (this.battlemap[tab[0]][tab[1]] != 0) {
+            int boat_id = this.battlemap[tab[0]][tab[1]];
+            this.battlemap[tab[0]][tab[1]] = 0;
             if (this.isEmpty()) {
                 result[0] = "sunk";
                 result[1]= false;
@@ -37,7 +37,7 @@ public class Game {
     public String isSink(int boat_id) {
         for (int i = 0; i < 10; i++) {
             for (int y = 0; y < 10; y++) {
-                if (this.map[i][y] == boat_id) {
+                if (this.battlemap[i][y] == boat_id) {
                     return "hit";
                 }
             }
@@ -47,7 +47,7 @@ public class Game {
     public boolean isEmpty() {
         for (int i =0; i < 10;i++) {
             for (int y = 0; y<10;y++)
-                if (this.map[i][y] != 0) {
+                if (this.battlemap[i][y] != 0) {
                     return false;
                 }
         }
